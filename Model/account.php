@@ -16,8 +16,19 @@ if (isset($_POST)) {
         if ($isUser) {
             $isLogin = $connect -> loginUser($login, $password);
 
-            if ($isLogin) {
+
+            if (isset($isLogin['id'])) {
                 echo "Вы вошли в систему";
+                $connect -> addTask($isLogin['id'], "task");
+
+                $posts = $connect -> getTasks($isLogin['id']);
+                var_dump($posts);
+
+                //$connect -> alterTasksStatus($isLogin['id'], false );
+                //$connect -> alterTaskStatus($posts['id']);
+                //$connect -> removeTask($posts['id']);
+                //$connect -> removeAllTasks($isLogin['id']);
+
             } else {
                 echo 'Неверный пароль';
             }
@@ -25,9 +36,11 @@ if (isset($_POST)) {
         } else {
             echo "таких нет";
             $connect -> registerUser($login, $password);
+
         }
 
         } else {
             // TODO ошибка передачи данных
         }
     }
+
