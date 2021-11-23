@@ -20,7 +20,7 @@ class connect{
         $sql = "INSERT INTO users (login, password) 
             VALUES (:login, :password)";
 
-        $password_hash = password_hash($_POST["password"], PASSWORD_BCRYPT);
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
             try {
                 $statement = $this -> db -> prepare($sql);
@@ -59,8 +59,16 @@ class connect{
         $statement -> execute();
         $result = $statement -> fetch(PDO::FETCH_ASSOC);
 
-        return $result;
+        if (password_verify($password, $result["password"])) {
 
+            return true;
+
+        } else {
+
+            return false;
+        }
+
+        return $result;
 
     }
 }

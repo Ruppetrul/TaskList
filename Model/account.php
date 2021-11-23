@@ -14,19 +14,12 @@ if (isset($_POST)) {
         $isUser = $connect -> userCheck($login);
 
         if ($isUser) {
-            echo "найден юзер";
             $isLogin = $connect -> loginUser($login, $password);
-            var_dump($isLogin);
 
-            if (password_verify($password, $isLogin["password"])) {
-
-                echo 'верный пароль';
-                // TODO пользователь пошел
-
+            if ($isLogin) {
+                echo "Вы вошли в систему";
             } else {
-                echo 'не вернрый пароль';
-                // TODO ошибка ввода данных
-
+                echo 'Неверный пароль';
             }
 
         } else {
