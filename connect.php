@@ -46,7 +46,6 @@ class connect{
         } else {
             return false;
         }
-
     }
 
     function loginUser($login, $password) {
@@ -67,8 +66,5 @@ class connect{
 
             return false;
         }
-
-        return $result;
-
     }
 }
