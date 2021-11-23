@@ -10,26 +10,34 @@ if (isset($_POST)) {
 
         $login = $_POST['login'];
         $password = $_POST['password'];
-        $password_hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-        $isLogin = $connect -> loginUser($login, $_POST['password'], $password_hash);
+        $isUser = $connect -> userCheck($login);
 
-        // отрицание для теста
-        if ($isLogin) {
-            //TODO переход на основную страницу
+        if ($isUser) {
+            echo "найден юзер";
+            $isLogin = $connect -> loginUser($login, $password);
+            var_dump($isLogin);
+
+            if (password_verify($password, $isLogin["password"])) {
+
+                echo 'верный пароль';
+                // TODO пользователь пошел
+
+            } else {
+                echo 'не вернрый пароль';
+                // TODO ошибка ввода данных
+
+            }
+
         } else {
-            // TODO проверка на логин. Если есть, ошибка пароля, если нет - регистрация
-            $isUser = $connect -> userCheck($login);
-            var_dump($isUser);
+            echo "таких нет";
+            $connect -> registerUser($login, $password);
         }
 
-        /*
-         * $isUser = $connect -> registerUser($login, $password_hash);
-        $isCheck = $connect -> userCheck($login);
+        } else {
 
-        */
+            // TODO ошибка передачи данных
+
+        }
 
     }
-
-}
-

@@ -20,10 +20,12 @@ class connect{
         $sql = "INSERT INTO users (login, password) 
             VALUES (:login, :password)";
 
+        $password_hash = password_hash($_POST["password"], PASSWORD_BCRYPT);
+
             try {
                 $statement = $this -> db -> prepare($sql);
                 $statement -> bindParam(":login", $login);
-                $statement -> bindParam(":password", $password);
+                $statement -> bindParam(":password", $password_hash);
 
                 return $statement -> execute();
 
@@ -34,19 +36,20 @@ class connect{
     }
 
     function userCheck($login) {
-        $sql = "SELECT id FROM users WHERE login LIKE $login";
+        $sql = "SELECT id FROM users WHERE login = $login";
         $statement = $this -> db -> prepare($sql);
         $statement -> execute();
         $result = $statement -> fetch(PDO::FETCH_ASSOC);
-        return $result;
-        /*if (isset($result['id'])) {
+
+        if (isset($result['id'])) {
             return true;
         } else {
             return false;
-        }*/
+        }
+
     }
 
-    function loginUser($login, $password, $password_hash) {
+    function loginUser($login, $password) {
         $sql = "SELECT password FROM users WHERE login = $login";
 
         $statement = $this -> db -> prepare($sql);
@@ -56,22 +59,7 @@ class connect{
         $statement -> execute();
         $result = $statement -> fetch(PDO::FETCH_ASSOC);
 
-        if (isset($result['password'])) {
-            return password_verify($password, $result['password']);
-        } else {
-            return false;
-        }
-
-
-        /*if (isset($result)){
-            if ($result['password'] == $password_hash) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }*/
+        return $result;
 
 
     }
