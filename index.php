@@ -34,7 +34,7 @@
 
 <?php
 
-require "../connect.php";
+require "connect.php";
 
 $connect = new connect("localhost","tasklist",
     "root", "");
@@ -55,7 +55,7 @@ if (isset($_POST['send'])) {
                 session_start();
                 $_SESSION['id'] = $isLogin['id'];
                 $_SESSION['login'] = $isLogin['login'];
-                header("Location: ../main.php");
+                header("Location: main.php");
             } else {
                 $_POST['error'] = "Wrong login or password";
             }
@@ -67,7 +67,7 @@ if (isset($_POST['send'])) {
                 session_start();
                 $_SESSION['id'] = $isLogin['id'];
                 $_SESSION['login'] = $isLogin['login'];
-                header("Location: ../main.php");
+                header("Location: main.php");
             } else {
 
             }

@@ -38,5 +38,5 @@ if(isset($_POST['delete'])){
     header("Refresh:0");
 } else if(isset($_POST['EXIT'])) {
     session_destroy();
-    header("Location: Views/Login.php");
+    header("Location: index.php");
 }

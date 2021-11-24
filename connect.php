@@ -1,6 +1,6 @@
 <?php
 
-require('Model/Task.php');
+require('Task.php');
 
 class connect{
     private $db;
