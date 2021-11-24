@@ -9,12 +9,16 @@ render($connect);
 
 function render($connect) {
 
+    $username = $_SESSION['login'];
+    require 'Views/user_panel.php';
+
     require 'Views/create.form.html';
     require 'Views/tools.form.html';
 
     $tasks = $connect -> getTasks($_SESSION['id']);
 
     require 'Views/main.show.php';
+
 }
 
 if(isset($_POST['delete'])){
@@ -32,4 +36,7 @@ if(isset($_POST['delete'])){
 } else if(isset($_POST['READY_ALL'])) {
     $connect -> alterTasksStatus($_SESSION['id'], true);
     header("Refresh:0");
+} else if(isset($_POST['EXIT'])) {
+    session_destroy();
+    header("Location: Views/Login.php");
 }

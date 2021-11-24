@@ -55,9 +55,6 @@ class connect{
         $sql = "SELECT * FROM users WHERE login = :login";
         $statement = $this -> db -> prepare($sql);
         $statement -> bindParam(":login", $login);
-       /* $statement -> bindParam(":login", $login);
-        $statement -> bindParam(":password_hash", $password_hash);*/
-
         $statement -> execute();
         $result = $statement -> fetch(PDO::FETCH_ASSOC);
 
@@ -122,7 +119,6 @@ class connect{
         $statement -> execute();
         $task = $statement -> fetch(PDO::FETCH_ASSOC);
 
-        $new_status = 0;
         if ($task['status'] == 0) {
             $new_status = 1;
         } else {
