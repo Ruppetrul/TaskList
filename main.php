@@ -15,7 +15,6 @@ function render($connect) {
     $tasks = $connect -> getTasks($_SESSION['id']);
 
     require 'Views/main.show.php';
-
 }
 
 if(isset($_POST['delete'])){
@@ -23,5 +22,14 @@ if(isset($_POST['delete'])){
     header("Refresh:0");
 } else if(isset($_POST['change_status'])) {
     $connect -> alterTaskStatus($_POST['change_status']);
+    header("Refresh:0");
+} else if(isset($_POST['add_task'])){
+    $connect -> addTask($_SESSION['id'], $_POST['new_task']);
+    header("Refresh:0");
+} else if (isset($_POST['REMOVE_ALL'])) {
+    $connect -> removeAllTasks($_SESSION['id']);
+    header("Refresh:0");
+} else if(isset($_POST['READY_ALL'])) {
+    $connect -> alterTasksStatus($_SESSION['id'], true);
     header("Refresh:0");
 }

@@ -135,9 +135,11 @@ class connect{
     }
 
     function alterTasksStatus($user_id, $status) {
-        $status = !$status;
-        $sql = "UPDATE tasks SET status = $status WHERE user_id = $user_id";
+
+        $sql = "UPDATE tasks SET status = :status WHERE user_id = :user_id";
         $statement = $this -> db -> prepare($sql);
+        $statement -> bindParam(":status", $status);
+        $statement -> bindParam(":user_id", $user_id);
         return $statement -> execute();
     }
 
