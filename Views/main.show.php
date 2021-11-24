@@ -14,12 +14,17 @@ if (!is_null($tasks)) {
             $status = "READY";
         }
 
+
         echo htmlspecialchars($task -> description);
 
-        echo '<form action="" method="post">
+        echo '
+            
+            <form action="" method="post">
             <button type="submit" name="change_status" value="' .$task -> id.'" >'.$status.'</button>                                  
             <button type="submit" name="delete" value="'.$task -> id.'">DELETE</button>            
-            </form>';
+            </form>
+            <hr>
+            ';
     }
 }
 

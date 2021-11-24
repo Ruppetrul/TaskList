@@ -11,6 +11,10 @@
             left: 40%; top: 10%;
         }
 
+        .exit {
+            text-align: right;
+        }
+
     </style>
 </head>
 
@@ -27,7 +31,7 @@ render($connect);
     function render($connect) {
         $username = $_SESSION['login'];
 
-        echo '<div>';
+        echo '<div style="padding: 16px">';
         require 'Views/user_panel.php';
 
         require 'Views/create.form.html';
