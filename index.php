@@ -43,8 +43,8 @@ $connect = new connect("localhost","tasklist",
 if (isset($_POST['send'])) {
     if (isset($_POST['login']) && isset($_POST["password"])) {
 
-        $login = $_POST['login'];
-        $password = $_POST['password'];
+        $login = htmlspecialchars($_POST['login']);
+        $password = htmlspecialchars($_POST['password']);
 
         $isUser = $connect -> userCheck($login);
 
