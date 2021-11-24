@@ -59,9 +59,7 @@ class connect{
         $result = $statement -> fetch(PDO::FETCH_ASSOC);
 
         if (password_verify($password, $result["password"])) {
-
             return $result;
-
         } else {
             return false;
         }
@@ -131,7 +129,6 @@ class connect{
     }
 
     function alterTasksStatus($user_id, $status) {
-
         $sql = "UPDATE tasks SET status = :status WHERE user_id = :user_id";
         $statement = $this -> db -> prepare($sql);
         $statement -> bindParam(":status", $status);

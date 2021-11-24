@@ -6,18 +6,15 @@ define('DB_PASSWORD', '1234');
 define('DB_NAME', 'tasklist');
 define('DB_TABLE_VERSIONS', 'versions');
 
-
 function connectDB() {
     $errorMessage = 'Невозможно подключиться к серверу базы данных';
     $conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-    if (!$conn)
-    throw new Exception($errorMessage);
+
+    if (!$conn) throw new Exception($errorMessage);
     else {
         $query = $conn->query('set names utf8');
-    if (!$query)
-    throw new Exception($errorMessage);
-    else
-    return $conn;
+        if (!$query) throw new Exception($errorMessage);
+        else return $conn;
     }
 }
 
@@ -47,7 +44,6 @@ function getMigrationFiles($conn) {
     return array_diff($allFiles, $versionsFiles);
 }
 
-
     function migrate($conn, $file) {
         $command = sprintf('mysql -u%s -p%s -h %s -D %s < %s', DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, $file);
         shell_exec($command);
@@ -63,16 +59,10 @@ $conn = connectDB();
 
 $files = getMigrationFiles($conn);
 
-if (empty($files)) {
-
-} else {
-
-
-// Накатываем миграцию для каждого файла
-foreach ($files as $file) {
+    if (empty($files)) {} else {
+        foreach ($files as $file) {
         migrate($conn, $file);
-        // Выводим название выполненного файла
-echo basename($file) . '<br>';
-}
 
+        echo basename($file) . '<br>';
+    }
 }

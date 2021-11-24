@@ -69,9 +69,7 @@ if (isset($_POST['send'])) {
                 $_SESSION['id'] = $isLogin['id'];
                 $_SESSION['login'] = $isLogin['login'];
                 header("Location: main.php");
-            } else {
-
-            }
+            } else {}
         }
     }
 }

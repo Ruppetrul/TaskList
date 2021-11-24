@@ -19,7 +19,6 @@ if (!is_null($tasks)) {
             <button type="submit" name="change_status" value="' .$task -> id.'" >'.$status.'</button>                                  
             <button type="submit" name="delete" value="'.$task -> id.'">DELETE</button>            
             </form> ';
-
     }
 }
 
