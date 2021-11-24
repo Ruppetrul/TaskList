@@ -19,6 +19,7 @@ if (isset($_POST)) {
 
             if (isset($isLogin['id'])) {
                 $connect -> addTask($isLogin['id'], "task");
+                $_SESSION['id'] = $isLogin['id'];
                 header("Location: ../main.php");
             } else {
                 echo 'Неверный пароль';

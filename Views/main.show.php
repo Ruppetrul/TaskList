@@ -1,30 +1,28 @@
 <?php
 
-require('models/Task.php');
-
 if (!is_null($tasks)) {
     for ($i = 0; $i < count($tasks); $i++) {
 
         $task = $tasks[$i];
-        $task = unserialize($task);
 
-        $state = false;
+        $status = false;
 
-        if ($task -> state == false) {
-            $state = "UNREADY";
+        if ($task -> status == false) {
+            $status = "UNREADY";
         } else {
-            $state = "READY";
+            $status = "READY";
         }
 
-        echo $task -> text;
+        echo $task -> description;
 
-        echo '<form action="TaskAction.php" method="post">
-            <button type="submit" name="change_status" value="' .$i.'" >'.$state.'</button>                                  
-            <button type="submit" name="delete" value="'.$i.'">DELETE</button>            
+        echo '<form action="" method="post">
+            <button type="submit" name="change_status" value="' .$task -> id.'" >'.$status.'</button>                                  
+            <button type="submit" name="delete" value="'.$task -> id.'">DELETE</button>            
             </form> ';
-
 
     }
 }
+
+
 
 

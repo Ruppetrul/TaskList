@@ -66,23 +66,25 @@ class connect{
             return $result;
 
         } else {
-
             return false;
         }
     }
 
     function getTasks($id) {
-        $sql = "SELECT * FROM tasks WHERE user_id = $id";
+        $sql = "SELECT * FROM tasks WHERE user_id = :id";
         $statement = $this -> db ->prepare($sql);
+        $statement -> bindParam(":id", $id);
         $statement -> execute();
 
-        $result = $statement -> fetchAll(PDO::FETCH_ASSOC);
+        $posts = $statement -> fetchAll();
+        $arrayTask = array();
 
-        for ($i = 0; $i <= count($result); $i ++) {
-            $result[$i] = new Task($result[$i]);
+        foreach ($posts as $row) {
+            $task = new Task($row);
+            $arrayTask[] = $task;
         }
 
-        return $result;
+        return $arrayTask;
     }
 
     function addTask($user_id, $description) {

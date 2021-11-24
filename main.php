@@ -2,17 +2,26 @@
 require "connect.php";
 session_start();
 
-render();
+$connect = new connect("localhost","tasklist",
+    "root", "");
 
-function render() {
+render($connect);
+
+function render($connect) {
 
     require 'Views/create.form.html';
     require 'Views/tools.form.html';
 
-   /* $connect = new connect("localhost","tasklist",
-        "root", "");
-    var_dump($_SESSION);
-    $posts = $connect -> getTasks($_SESSION['id']);
-    var_dump($posts);*/
+    $tasks = $connect -> getTasks($_SESSION['id']);
 
+    require 'Views/main.show.php';
+
+}
+
+if(isset($_POST['delete'])){
+    $connect -> removeTask($_POST['delete']);
+    header("Refresh:0");
+} else if(isset($_POST['change_status'])) {
+    $connect -> alterTaskStatus($_POST['change_status']);
+    header("Refresh:0");
 }
