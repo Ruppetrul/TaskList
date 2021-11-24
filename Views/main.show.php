@@ -13,7 +13,7 @@ if (!is_null($tasks)) {
             $status = "READY";
         }
 
-        echo $task -> description;
+        echo htmlspecialchars($task -> description);
 
         echo '<form action="" method="post">
             <button type="submit" name="change_status" value="' .$task -> id.'" >'.$status.'</button>                                  
