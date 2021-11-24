@@ -35,6 +35,7 @@
 <?php
 
 require "connect.php";
+require "migrations/migration.php";
 
 $connect = new connect("localhost","tasklist",
     "root", "");

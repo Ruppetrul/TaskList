@@ -1,8 +1,8 @@
 <?php
 
 define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASSWORD', '');
+define('DB_USER', 'myTestUser');
+define('DB_PASSWORD', '1234');
 define('DB_NAME', 'tasklist');
 define('DB_TABLE_VERSIONS', 'versions');
 
@@ -64,9 +64,9 @@ $conn = connectDB();
 $files = getMigrationFiles($conn);
 
 if (empty($files)) {
-    echo 'Ваша база данных в актуальном состоянии.';
+
 } else {
-    echo 'Начинаем миграцию...<br><br>';
+
 
 // Накатываем миграцию для каждого файла
 foreach ($files as $file) {
@@ -75,5 +75,4 @@ foreach ($files as $file) {
 echo basename($file) . '<br>';
 }
 
-echo '<br>Миграция завершена.';
 }
