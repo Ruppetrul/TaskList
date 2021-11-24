@@ -1,5 +1,7 @@
 <?php
 
+require('Model/Task.php');
+
 class connect{
     private $db;
 
@@ -36,8 +38,9 @@ class connect{
     }
 
     function userCheck($login) {
-        $sql = "SELECT id FROM users WHERE login = $login";
+        $sql = "SELECT * FROM users WHERE login = :login";
         $statement = $this -> db -> prepare($sql);
+        $statement -> bindParam(":login", $login);
         $statement -> execute();
         $result = $statement -> fetch(PDO::FETCH_ASSOC);
 
@@ -49,9 +52,9 @@ class connect{
     }
 
     function loginUser($login, $password) {
-        $sql = "SELECT * FROM users WHERE login = $login";
-
+        $sql = "SELECT * FROM users WHERE login = :login";
         $statement = $this -> db -> prepare($sql);
+        $statement -> bindParam(":login", $login);
        /* $statement -> bindParam(":login", $login);
         $statement -> bindParam(":password_hash", $password_hash);*/
 
@@ -73,7 +76,12 @@ class connect{
         $statement = $this -> db ->prepare($sql);
         $statement -> execute();
 
-        $result = $statement -> fetch(PDO::FETCH_ASSOC);
+        $result = $statement -> fetchAll(PDO::FETCH_ASSOC);
+
+        for ($i = 0; $i <= count($result); $i ++) {
+            $result[$i] = new Task($result[$i]);
+        }
+
         return $result;
     }
 

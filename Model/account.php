@@ -5,6 +5,7 @@ session_start();
 $connect = new connect("localhost","tasklist",
     "root", "");
 
+var_dump($_POST);
 if (isset($_POST)) {
     if (isset($_POST['login']) && isset($_POST["password"])) {
 
@@ -16,31 +17,22 @@ if (isset($_POST)) {
         if ($isUser) {
             $isLogin = $connect -> loginUser($login, $password);
 
-
             if (isset($isLogin['id'])) {
-                echo "Вы вошли в систему";
                 $connect -> addTask($isLogin['id'], "task");
-
-                $posts = $connect -> getTasks($isLogin['id']);
-                var_dump($posts);
-
-                //$connect -> alterTasksStatus($isLogin['id'], false );
-                //$connect -> alterTaskStatus($posts['id']);
-                //$connect -> removeTask($posts['id']);
-                //$connect -> removeAllTasks($isLogin['id']);
-
+                header("Location: ../main.php");
             } else {
                 echo 'Неверный пароль';
             }
-
         } else {
-            echo "таких нет";
             $connect -> registerUser($login, $password);
+            $isLogin = $connect -> loginUser($login, $password);
 
-        }
-
-        } else {
-            // TODO ошибка передачи данных
+            if (isset($isLogin['id'])) {
+                $connect->addTask($isLogin['id'], "task");
+                echo 'Вы вошли и добавили новый пост';
+            } else {
+                echo 'Ошибка входа';
+            }
         }
     }
-
+}
