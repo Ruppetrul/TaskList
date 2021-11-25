@@ -1,4 +1,3 @@
-
 <?php
 
 if (!is_null($tasks)) {

@@ -1,47 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-
-        div {
-            position: fixed;
-            border: 4px solid black;
-            left: 40%; top: 10%;
-        }
-
-        .exit {
-            text-align: right;
-        }
-
-    </style>
-</head>
-
-
 <?php
 require "connect.php";
 session_start();
 
 $connect = new connect("localhost","tasklist",
     "root", "");
-
-render($connect);
-
-    function render($connect) {
-        $username = $_SESSION['login'];
-
-        echo '<div style="padding: 16px">';
-        require 'Views/user_panel.php';
-
-        require 'Views/create.form.html';
-        require 'Views/tools.form.html';
-
-        $tasks = $connect -> getTasks($_SESSION['id']);
-
-        require 'Views/main.show.php';
-        echo '</div>';
-    }
 
     if(isset($_POST['delete'])){
         $connect -> removeTask(htmlspecialchars($_POST['delete']));
@@ -62,3 +24,21 @@ render($connect);
         session_destroy();
         header("Location: index.php");
     }
+
+render($connect);
+
+function render($connect) {
+    $username = $_SESSION['login'];
+
+    echo '<div style="padding: 16px; position: fixed;
+            border: 4px solid black;  left: 40%; top: 10%;">';
+    require 'Views/user_panel.php';
+
+    require 'Views/create.form.html';
+    require 'Views/tools.form.html';
+
+    $tasks = $connect -> getTasks($_SESSION['id']);
+
+    require 'Views/main.show.php';
+    echo '</div>';
+}
