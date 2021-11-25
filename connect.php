@@ -135,5 +135,4 @@ class connect{
         $statement -> bindParam(":user_id", $user_id);
         return $statement -> execute();
     }
-
 }
