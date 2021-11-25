@@ -1,8 +1,6 @@
 <?php
 require "connect.php";
 
-include_once "Views/auth.form.html";
-
 $connect = new connect("localhost","tasklist",
     "root", "");
 
@@ -39,3 +37,5 @@ if (isset($_POST['send'])) {
         }
     }
 }
+
+include_once "Views/auth.form.html";
